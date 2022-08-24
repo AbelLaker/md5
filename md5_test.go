@@ -144,7 +144,7 @@ func TestLarge(t *testing.T) {
 
 // Tests that blockGeneric (pure Go) and block (in assembly for amd64, 386, arm) match.
 func TestBlockGeneric(t *testing.T) {
-	gen, asm := New().(*digest), New().(*digest)
+	gen, asm := New().(*Digest), New().(*Digest)
 	buf := make([]byte, BlockSize*20) // arbitrary factor
 	rand.Read(buf)
 	blockGeneric(gen, buf)

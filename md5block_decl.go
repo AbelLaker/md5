@@ -11,4 +11,4 @@ const haveAsm = true
 
 //go:noescape
 
-func block(dig *digest, p []byte)
+func block(dig *Digest, p []byte)

@@ -2,6 +2,7 @@ package md5
 
 import (
 	"crypto/md5"
+	"encoding/json"
 	"fmt"
 	"testing"
 )
@@ -9,8 +10,24 @@ import (
 func TestLoad(t *testing.T) {
 	h := md5.New()
 	m := New()
-	str := fmt.Sprintf("%x", m.Sum(nil))
-	fmt.Println("m md5:", str)
-	str = fmt.Sprintf("%x", h.Sum(nil))
-	fmt.Println("h md5:", str)
+	h.Write([]byte("12345"))
+	h.Write([]byte("67890"))
+
+	m.Write([]byte("12345"))
+	d, err := json.Marshal(m)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(d))
+	m2 := NewByJason(string(d))
+	m2.Write([]byte("67890"))
+	strh := fmt.Sprintf("%x", h.Sum(nil))
+	strm := fmt.Sprintf("%x", m2.Sum(nil))
+	if strh != strm {
+		fmt.Println("hmd5 != strm :", strh, "!=", strm)
+	} else {
+		fmt.Println("hmd5 = strm :", strh)
+	}
+
 }

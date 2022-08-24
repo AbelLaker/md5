@@ -11,9 +11,9 @@ import (
 	"math/bits"
 )
 
-func blockGeneric(dig *digest, p []byte) {
+func blockGeneric(dig *Digest, p []byte) {
 	// load state
-	a, b, c, d := dig.s[0], dig.s[1], dig.s[2], dig.s[3]
+	a, b, c, d := dig.S[0], dig.S[1], dig.S[2], dig.S[3]
 
 	for i := 0; i <= len(p)-BlockSize; i += BlockSize {
 		// eliminate bounds checks on p
@@ -121,5 +121,5 @@ func blockGeneric(dig *digest, p []byte) {
 	}
 
 	// save state
-	dig.s[0], dig.s[1], dig.s[2], dig.s[3] = a, b, c, d
+	dig.S[0], dig.S[1], dig.S[2], dig.S[3] = a, b, c, d
 }
